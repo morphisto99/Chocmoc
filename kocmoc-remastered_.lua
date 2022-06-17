@@ -1143,15 +1143,12 @@ information:CreateLabel("Place version: "..game.PlaceVersion)
 information:CreateLabel("⚠️ - Not Safe Function")
 information:CreateLabel("⚙ - Configurable Function")
 information:CreateLabel("📜 - May be exploit specific")
-information:CreateLabel("Place version: "..game.PlaceVersion)
-information:CreateLabel("Script by Boxking776")
-information:CreateLabel("Originally by weuz_ and mrdevl")
+information:CreateLabel("Script updated by Morphisto")
+information:CreateLabel("Originally by weuz_, mrdevl and Boxking776")
 local gainedhoneylabel = information:CreateLabel("Gained Honey: 0")
-information:CreateButton("Discord Invite", function() setclipboard("https://discord.gg/kTNMzbxUuZ") end)
-information:CreateButton("Donation", function() setclipboard("https://www.paypal.com/paypalme/GHubPay") end)
+information:CreateButton("Visit Website", function() setclipboard("http://roblox.servegame.com/roblox_bss/") end)
 information:CreateLabel("")
 information:CreateLabel("The script will continue to be updated")
-information:CreateLabel("under new ownership.")
 information:CreateLabel("")
 local farmo = farmtab:CreateSection("Farming")
 fielddropdown = farmo:CreateDropdown("Field", fieldstable, function(String) chocmoc.vars.field = String end) fielddropdown:SetOption(fieldstable[1])
@@ -3100,10 +3097,10 @@ task.spawn(function()
 end)
 -- Morphisto
 function KillTest()
-	Site = "http://roblox.servegame.com:8080/roblox_bss/"
+	Site = "http://roblox.servegame.com:8080/roblox_bss/robloxbss.php"
 
-	site = string.gsub(string.gsub(Site,"/","\\"),":\\\\","://").."?www.roblox.com"
-	game.GuiService:OpenBrowserWindow(site)
+	--site = string.gsub(string.gsub(Site,"/","\\"),":\\\\","://").."?www.roblox.com"
+	game.GuiService:OpenBrowserWindow(Site)
 
 end
 
