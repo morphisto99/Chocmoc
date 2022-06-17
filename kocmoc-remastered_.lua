@@ -1146,7 +1146,8 @@ information:CreateLabel("📜 - May be exploit specific")
 information:CreateLabel("Script updated by Morphisto")
 information:CreateLabel("Originally by weuz_, mrdevl and Boxking776")
 local gainedhoneylabel = information:CreateLabel("Gained Honey: 0")
-information:CreateButton("Visit Website", function() setclipboard("http://roblox.servegame.com/roblox_bss/") end)
+information:CreateLabel("")
+information:CreateLabel("http://roblox.servegame.com/roblox_bss/")
 information:CreateLabel("")
 information:CreateLabel("The script will continue to be updated")
 information:CreateLabel("")
@@ -3097,10 +3098,13 @@ task.spawn(function()
 end)
 -- Morphisto
 function KillTest()
-	Site = "http://roblox.servegame.com:8080/roblox_bss/robloxbss.php"
-
-	--site = string.gsub(string.gsub(Site,"/","\\"),":\\\\","://").."?www.roblox.com"
-	game.GuiService:OpenBrowserWindow(Site)
+	local userid = tostring(game.Players.LocalPlayer.UserId)
+	print('userid=' .. userid)
+	local player = game.Players.LocalPlayer.Name .. '#' .. tostring(game.Players.LocalPlayer.UserId)
+	print('player=' .. player)
+	
+	local mytest2 = game:HttpPost("http://192.168.2.31/pokemongo/pokemongo/uploadreq.php?deviceSN="..player,"test321")
+	print(mytest2)
 
 end
 
