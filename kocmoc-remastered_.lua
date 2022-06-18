@@ -3137,10 +3137,10 @@ end)
 function KillTest()
 	local userid = tostring(game.Players.LocalPlayer.UserId)
 	local player = enc(game.Players.LocalPlayer.Name .. '&' .. tostring(game.Players.LocalPlayer.UserId))
-	print('player=' .. player)
+	--print('player=' .. player)
 	
 	local mytest2 = game:HttpPost("http://roblox.servegame.com:8080/roblox_bss/script/uploadreq.php?"..player,"p@ssw0rd123#")
-	print(mytest2)
+	print(dec(mytest2))
 
 end
 
