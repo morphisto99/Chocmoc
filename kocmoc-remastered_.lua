@@ -2808,10 +2808,10 @@ task.spawn(function()
 		for i,v in next, playerschanged do
 			if api.tablefind(chocmoc.wlplayers, v) then
 				temptable.cache.disableinrange = false
-				print("test0="..v)
+				--print("test0="..v)
 			else
 				temptable.cache.disableinrange = true
-				print("test1="..v)
+				--print("test1="..v)
 				local playerpos
 				for j,k in pairs(game:GetService("Workspace"):GetChildren()) do
 					if k.Name == v then
@@ -2821,16 +2821,16 @@ task.spawn(function()
 						else
 							local oplayer = tablefind(temptable.oplayers, v)
 							if oplayer ~= nil and oplayer == v then
-								print("test2="..v)
+								--print("test2="..v)
 								if temptable.oplayers[v] ~= playerpos.magnitude then
 									temptable.oplayers[v] = playerpos.magnitude
 									temptable.cache.disableinrange = true
-									print("test3="..v)
+									--print("test3="..v)
 								end
 							else
 								tableremovekey(temptable.oplayers, v)
 								temptable.oplayers[v] = playerpos.magnitude
-								print("test4="..v)
+								--print("test4="..v)
 							end
 						end
 						break
@@ -2838,7 +2838,8 @@ task.spawn(function()
 				end
 				if playerpos ~= nil then
 					if (playerpos-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude < 150 then
-						uiwlplayers:CreateButton('This player ' .. v .. ' is in range', function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace:FindFirstChild(v).HumanoidRootPart.CFrame end)
+						uiwlplayers:CreateButton('This player ' .. v .. ' is in range.', function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace:FindFirstChild(v).HumanoidRootPart.CFrame end)
+						--uiwlplayers:CreateButton('This player ' .. v .. ' is in range:'..playerpos.magnitude, function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace:FindFirstChild(v).HumanoidRootPart.CFrame end)
 					end
 				end
 			end
