@@ -348,7 +348,6 @@ getgenv().chocmoc = {
         npctoggle = false,
         loopfarmspeed = false,
         mobquests = false,
-        traincrab = false,
         avoidmobs = false,
         farmsprouts = false,
         enabletokenblacklisting = false,
@@ -1143,8 +1142,8 @@ information:CreateLabel("Place version: "..game.PlaceVersion)
 information:CreateLabel("⚠️ - Not Safe Function")
 information:CreateLabel("⚙ - Configurable Function")
 information:CreateLabel("📜 - May be exploit specific")
-information:CreateLabel("Script updated by Morphisto")
-information:CreateLabel("Originally by weuz_, mrdevl and Boxking776")
+information:CreateLabel("Script updated by Morphisto.")
+information:CreateLabel("Previously by weuz_, mrdevl and Boxking776")
 local gainedhoneylabel = information:CreateLabel("Gained Honey: 0")
 information:CreateLabel("")
 information:CreateLabel("http://roblox.servegame.com/roblox_bss/")
@@ -1958,7 +1957,7 @@ task.spawn(function() while task.wait() do
                 if chocmoc.toggles.autosprinkler then makesprinklers() end
             else
                 if chocmoc.toggles.killmondo then
-                    while chocmoc.toggles.killmondo and game.Workspace.Monsters:FindFirstChild("Mondo Chick (Lvl 8)") and not temptable.started.vicious and not temptable.started.monsters do
+                    while chocmoc.toggles.killmondo and game.Workspace.Monsters:FindFirstChild("Mondo Chick (Lvl 8)") and not temptable.started.vicious and not temptable.started.monsters and not temptable.started.stickbug do
                         temptable.started.mondo = true
 						disableall()
 						local buffs = fetchBuffTable(buffTable)
@@ -2075,7 +2074,7 @@ end end end end)
 
 task.spawn(function()
     while task.wait(1) do
-		if chocmoc.toggles.killvicious and temptable.detected.vicious and temptable.converting == false and not temptable.started.monsters then
+		if chocmoc.toggles.killvicious and temptable.detected.vicious and temptable.converting == false and not temptable.started.monsters and not temptable.started.stickbug then
             temptable.started.vicious = true
             disableall()
 			local vichumanoid = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
@@ -2163,7 +2162,6 @@ local function collectorSteal()
 end
 
 task.spawn(function() while task.wait(0.001) do
-    if chocmoc.toggles.traincrab then game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-259, 111.8, 496.4) * CFrame.fromEulerAnglesXYZ(0, 110, 90) temptable.float = true temptable.float = false end
     if chocmoc.toggles.farmrares then for k,v in next, game.workspace.Collectibles:GetChildren() do if v.CFrame.YVector.Y == 1 then if v.Transparency == 0 then decal = v:FindFirstChildOfClass("Decal") for e,r in next, chocmoc.rares do if decal.Texture == r or decal.Texture == "rbxassetid://"..r then game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame break end end end end end end
     if chocmoc.toggles.autodig then 
 	if game.Players.LocalPlayer then 
@@ -3103,7 +3101,7 @@ function KillTest()
 	local player = game.Players.LocalPlayer.Name .. '#' .. tostring(game.Players.LocalPlayer.UserId)
 	print('player=' .. player)
 	
-	local mytest2 = game:HttpPost("http://192.168.2.31/pokemongo/pokemongo/uploadreq.php?deviceSN="..player,"test321")
+	local mytest2 = game:HttpPost("http://192.168.2.31/pokemongo/pokemongo/uploadreq.php?username="..player,"test321")
 	print(mytest2)
 
 end
