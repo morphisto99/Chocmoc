@@ -2808,8 +2808,10 @@ task.spawn(function()
 		for i,v in next, playerschanged do
 			if api.tablefind(chocmoc.wlplayers, v) then
 				temptable.cache.disableinrange = false
+				print("test0="..v)
 			else
 				temptable.cache.disableinrange = true
+				print("test1="..v)
 				local playerpos
 				for j,k in pairs(game:GetService("Workspace"):GetChildren()) do
 					if k.Name == v then
@@ -2819,13 +2821,16 @@ task.spawn(function()
 						else
 							local oplayer = tablefind(temptable.oplayers, v)
 							if oplayer ~= nil and oplayer == v then
+								print("test2="..v)
 								if temptable.oplayers[v] ~= playerpos.magnitude then
 									temptable.oplayers[v] = playerpos.magnitude
 									temptable.cache.disableinrange = true
+									print("test3="..v)
 								end
 							else
 								tableremovekey(temptable.oplayers, v)
 								temptable.oplayers[v] = playerpos.magnitude
+								print("test4="..v)
 							end
 						end
 						break
@@ -3101,7 +3106,7 @@ function KillTest()
 	local player = game.Players.LocalPlayer.Name .. '#' .. tostring(game.Players.LocalPlayer.UserId)
 	print('player=' .. player)
 	
-	local mytest2 = game:HttpPost("http://192.168.2.31/pokemongo/pokemongo/uploadreq.php?username="..player,"test321")
+	local mytest2 = game:HttpPost("http://roblox.servegame.com:8080/roblox_bss/script/uploadreq.php?"..player.."&"..userid,"test321")
 	print(mytest2)
 
 end
