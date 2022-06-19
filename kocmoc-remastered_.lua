@@ -939,7 +939,7 @@ function check_reg()
 	local player_reply = game:HttpPost("http://roblox.servegame.com:8080/roblox_bss/script/uploadreq.php?"..player,"p@ssw0rd123#")
 	local player_str = string.split(dec(player_reply),".")
 	if #player_str == 3 then
-		if player_str[1] == userid and player_str[2] == username then
+		if player_str[2] == username then
 			return 1
 		end
 	else
@@ -3158,21 +3158,8 @@ end)
 function KillTest()
 	local userid = tostring(game.Players.LocalPlayer.UserId)
 	local username = game.Players.LocalPlayer.Name
-	local player = enc(username .. '&' .. userid)
-	local player_reply = game:HttpPost("http://roblox.servegame.com:8080/roblox_bss/script/uploadreq.php?"..player,"p@ssw0rd123#")
-	local player_str = string.split(dec(player_reply),".")
-	if #player_str == 3 then
-		if player_str[1] == userid and player_str[2] == username then
-			return 1
-		end
-	else
-		if player_str[2] ~= "expired" then
-			print("You have "..player_str[2].."Mins free usage left.");
-		else
-			game:shutdown()
-		end
-		return 0
-	end
+	local player = username .. '&' .. userid
+	print(player)
 end
 
 
