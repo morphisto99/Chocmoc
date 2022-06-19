@@ -1774,7 +1774,6 @@ task.spawn(function() while task.wait() do
         end
         
         if chocmoc.toggles.autofarm then
-        if chocmoc.toggles.autoquest then checkquestcooldown() end -- Morphisto
 		if chocmoc.toggles.autodoquest and game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.Menus.Children.Quests.Content:FindFirstChild("Frame") and not chocmoc.toggles.farmboostedfield then
             for i,v in next, game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.Menus.Children.Quests:GetDescendants() do
                 if v.Name == "Description" then
