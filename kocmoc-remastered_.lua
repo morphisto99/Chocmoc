@@ -939,10 +939,15 @@ function check_reg()
 	local player_str = string.split(dec(player_reply),".")
 	if #player_str == 3 then
 		if player_str[1] == userid and player_str[2] == username then
-			print('player is registered')
+			return 1
 		end
 	else
-		print(player_str[1] .. '=' .. player_str[2])
+		if player_str[2] ~= "expired" then
+			print("You have "..player_str[2].."Mins free usage left.");
+		else
+			game:shutdown()
+		end
+		return 0
 	end
 end
 
@@ -3157,10 +3162,15 @@ function KillTest()
 	local player_str = string.split(dec(player_reply),".")
 	if #player_str == 3 then
 		if player_str[1] == userid and player_str[2] == username then
-			print('player is registered')
+			return 1
 		end
 	else
-		print(player_str[1] .. '=' .. player_str[2])
+		if player_str[2] ~= "expired" then
+			print("You have "..player_str[2].."Mins free usage left.");
+		else
+			game:shutdown()
+		end
+		return 0
 	end
 end
 
