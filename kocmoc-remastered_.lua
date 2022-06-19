@@ -10,9 +10,8 @@ local bssapi = loadstring(game:HttpGet("https://raw.githubusercontent.com/morphi
 if not isfolder("chocmoc") then makefolder("chocmoc") end
 
 -- Morphisto
-local b='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
--- encoding
 function enc(data)
+	local b ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
     return ((data:gsub('.', function(x) 
         local r,b='',x:byte()
         for i=8,1,-1 do r=r..(b%2^i-b%2^(i-1)>0 and '1' or '0') end
@@ -25,8 +24,8 @@ function enc(data)
     end)..({ '', '==', '=' })[#data%3+1])
 end
 
--- decoding
 function dec(data)
+	local b ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
     data = string.gsub(data, '[^'..b..'=]', '')
     return (data:gsub('.', function(x)
         if (x == '=') then return '' end
@@ -3140,8 +3139,8 @@ function KillTest()
 	--print('player=' .. player)
 	
 	local mytest2 = game:HttpPost("http://roblox.servegame.com:8080/roblox_bss/script/uploadreq.php?"..player,"p@ssw0rd123#")
-	print('test1=' .. dec(mytest2))
-	print('test2=' .. mytest2)
+	print('dec=' .. dec(mytest2))
+	print('non-dec=' .. mytest2)
 
 end
 
