@@ -2136,7 +2136,7 @@ task.spawn(function()
 end)
 
 task.spawn(function() while task.wait() do
-    if chocmoc.toggles.killwindy and temptable.detected.windy and not temptable.converting and not temptable.started.vicious and not temptable.started.mondo and not temptable.started.monsters then
+    if chocmoc.toggles.killwindy and temptable.detected.windy and not temptable.converting and not temptable.started.vicious and not temptable.started.mondo and not temptable.started.monsters and not temptable.started.stickbug then
         temptable.started.windy = true
         wlvl = "" aw = false awb = false -- some variable for autowindy, yk?
         disableall()
