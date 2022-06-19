@@ -928,6 +928,7 @@ task.spawn(function() while task.wait(300) do
 			enableall()
 		end
 	end
+	check_reg()
 end end)
 -- Morphisto
 
