@@ -9,38 +9,6 @@ getgenv().api = loadstring(game:HttpGet("https://raw.githubusercontent.com/morph
 local bssapi = loadstring(game:HttpGet("https://raw.githubusercontent.com/morphisto99/chocmoc/main/bssapi.lua"))()
 if not isfolder("chocmoc") then makefolder("chocmoc") end
 
--- Morphisto
-function enc(data)
-	local b='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
-    return ((data:gsub('.', function(x) 
-        local r,b='',x:byte()
-        for i=8,1,-1 do r=r..(b%2^i-b%2^(i-1)>0 and '1' or '0') end
-        return r;
-    end)..'0000'):gsub('%d%d%d?%d?%d?%d?', function(x)
-        if (#x < 6) then return '' end
-        local c=0
-        for i=1,6 do c=c+(x:sub(i,i)=='1' and 2^(6-i) or 0) end
-        return b:sub(c+1,c+1)
-    end)..({ '', '==', '=' })[#data%3+1])
-end
-
-function dec(data)
-	local b='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
-    data = string.gsub(data, '[^'..b..'=]', '')
-    return (data:gsub('.', function(x)
-        if (x == '=') then return '' end
-        local r,f='',(b:find(x)-1)
-        for i=6,1,-1 do r=r..(f%2^i-f%2^(i-1)>0 and '1' or '0') end
-        return r;
-    end):gsub('%d%d%d?%d?%d?%d?%d?%d?', function(x)
-        if (#x ~= 8) then return '' end
-        local c=0
-        for i=1,8 do c=c+(x:sub(i,i)=='1' and 2^(8-i) or 0) end
-        return string.char(c)
-    end))
-end
--- Morphisto
-
 -- Script temporary variables
 local playerstatsevent = game:GetService("ReplicatedStorage").Events.RetrievePlayerStats
 local statstable = playerstatsevent:InvokeServer()
@@ -380,6 +348,7 @@ getgenv().chocmoc = {
         npctoggle = false,
         loopfarmspeed = false,
         mobquests = false,
+        traincrab = false,
         avoidmobs = false,
         farmsprouts = false,
         enabletokenblacklisting = false,
@@ -1174,8 +1143,8 @@ information:CreateLabel("Place version: "..game.PlaceVersion)
 information:CreateLabel("⚠️ - Not Safe Function")
 information:CreateLabel("⚙ - Configurable Function")
 information:CreateLabel("📜 - May be exploit specific")
-information:CreateLabel("Script updated by Morphisto.")
-information:CreateLabel("Previously by weuz_, mrdevl and Boxking776")
+information:CreateLabel("Script updated by Morphisto")
+information:CreateLabel("Originally by weuz_, mrdevl and Boxking776")
 local gainedhoneylabel = information:CreateLabel("Gained Honey: 0")
 information:CreateLabel("")
 information:CreateLabel("http://roblox.servegame.com/roblox_bss/")
@@ -1989,7 +1958,7 @@ task.spawn(function() while task.wait() do
                 if chocmoc.toggles.autosprinkler then makesprinklers() end
             else
                 if chocmoc.toggles.killmondo then
-                    while chocmoc.toggles.killmondo and game.Workspace.Monsters:FindFirstChild("Mondo Chick (Lvl 8)") and not temptable.started.vicious and not temptable.started.monsters and not temptable.started.stickbug do
+                    while chocmoc.toggles.killmondo and game.Workspace.Monsters:FindFirstChild("Mondo Chick (Lvl 8)") and not temptable.started.vicious and not temptable.started.monsters do
                         temptable.started.mondo = true
 						disableall()
 						local buffs = fetchBuffTable(buffTable)
@@ -2106,7 +2075,7 @@ end end end end)
 
 task.spawn(function()
     while task.wait(1) do
-		if chocmoc.toggles.killvicious and temptable.detected.vicious and temptable.converting == false and not temptable.started.monsters and not temptable.started.stickbug then
+		if chocmoc.toggles.killvicious and temptable.detected.vicious and temptable.converting == false and not temptable.started.monsters then
             temptable.started.vicious = true
             disableall()
 			local vichumanoid = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
@@ -2135,7 +2104,7 @@ task.spawn(function()
 end)
 
 task.spawn(function() while task.wait() do
-    if chocmoc.toggles.killwindy and temptable.detected.windy and not temptable.converting and not temptable.started.vicious and not temptable.started.mondo and not temptable.started.monsters and not temptable.started.stickbug then
+    if chocmoc.toggles.killwindy and temptable.detected.windy and not temptable.converting and not temptable.started.vicious and not temptable.started.mondo and not temptable.started.monsters then
         temptable.started.windy = true
         wlvl = "" aw = false awb = false -- some variable for autowindy, yk?
         disableall()
@@ -2194,6 +2163,7 @@ local function collectorSteal()
 end
 
 task.spawn(function() while task.wait(0.001) do
+    if chocmoc.toggles.traincrab then game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-259, 111.8, 496.4) * CFrame.fromEulerAnglesXYZ(0, 110, 90) temptable.float = true temptable.float = false end
     if chocmoc.toggles.farmrares then for k,v in next, game.workspace.Collectibles:GetChildren() do if v.CFrame.YVector.Y == 1 then if v.Transparency == 0 then decal = v:FindFirstChildOfClass("Decal") for e,r in next, chocmoc.rares do if decal.Texture == r or decal.Texture == "rbxassetid://"..r then game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame break end end end end end end
     if chocmoc.toggles.autodig then 
 	if game.Players.LocalPlayer then 
@@ -2840,10 +2810,8 @@ task.spawn(function()
 		for i,v in next, playerschanged do
 			if api.tablefind(chocmoc.wlplayers, v) then
 				temptable.cache.disableinrange = false
-				--print("test0="..v)
 			else
 				temptable.cache.disableinrange = true
-				--print("test1="..v)
 				local playerpos
 				for j,k in pairs(game:GetService("Workspace"):GetChildren()) do
 					if k.Name == v then
@@ -2853,16 +2821,13 @@ task.spawn(function()
 						else
 							local oplayer = tablefind(temptable.oplayers, v)
 							if oplayer ~= nil and oplayer == v then
-								--print("test2="..v)
 								if temptable.oplayers[v] ~= playerpos.magnitude then
 									temptable.oplayers[v] = playerpos.magnitude
 									temptable.cache.disableinrange = true
-									--print("test3="..v)
 								end
 							else
 								tableremovekey(temptable.oplayers, v)
 								temptable.oplayers[v] = playerpos.magnitude
-								--print("test4="..v)
 							end
 						end
 						break
@@ -2870,8 +2835,7 @@ task.spawn(function()
 				end
 				if playerpos ~= nil then
 					if (playerpos-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude < 150 then
-						uiwlplayers:CreateButton('This player ' .. v .. ' is in range.', function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace:FindFirstChild(v).HumanoidRootPart.CFrame end)
-						--uiwlplayers:CreateButton('This player ' .. v .. ' is in range:'..playerpos.magnitude, function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace:FindFirstChild(v).HumanoidRootPart.CFrame end)
+						uiwlplayers:CreateButton('This player ' .. v .. ' is in range', function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace:FindFirstChild(v).HumanoidRootPart.CFrame end)
 					end
 				end
 			end
@@ -3132,19 +3096,14 @@ task.spawn(function()
 		end
 	end
 end)
-
 -- Morphisto
 function KillTest()
-	local userid = tostring(game.Players.LocalPlayer.UserId)
-	local player = enc(game.Players.LocalPlayer.Name .. '&' .. tostring(game.Players.LocalPlayer.UserId))
-	--print('player=' .. player)
-	
-	local mytest2 = game:HttpPost("http://roblox.servegame.com:8080/roblox_bss/script/uploadreq.php?"..player,"p@ssw0rd123#")
-	print('dec=' .. dec(mytest2))
-	print('non-dec=' .. mytest2)
+	Site = "http://roblox.servegame.com:8080/roblox_bss/robloxbss.php"
+
+	--site = string.gsub(string.gsub(Site,"/","\\"),":\\\\","://").."?www.roblox.com"
+	game.GuiService:OpenBrowserWindow(Site)
 
 end
-
 
 for _, part in next, workspace:FindFirstChild("FieldDecos"):GetDescendants() do if part:IsA("BasePart") then part.CanCollide = false part.Transparency = part.Transparency < 0.5 and 0.5 or part.Transparency task.wait() end end
 for _, part in next, workspace:FindFirstChild("Decorations"):GetDescendants() do if part:IsA("BasePart") and (part.Parent.Name == "Bush" or part.Parent.Name == "Blue Flower") then part.CanCollide = false part.Transparency = part.Transparency < 0.5 and 0.5 or part.Transparency task.wait() end end
