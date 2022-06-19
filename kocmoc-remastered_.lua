@@ -338,6 +338,7 @@ antpart.CanCollide = false
 
 -- config
 
+quest_time = time() -- Morphisto
 stickbug_time = time() -- Morphisto
 
 getgenv().chocmoc = {
@@ -907,44 +908,27 @@ function getcrosshairs(v)
 end
 
 -- Morphisto
-task.spawn(function() while task.wait(300) do
-	if not temptable.started.vicious and not temptable.started.windy and not temptable.started.stickbug then
-		if chocmoc.toggles.stickbug then
-			checksbcooldown()
-		end
-		if chocmoc.toggles.autoquest and not temptable.started.stickbug then
-			temptable.started.quests = true
-			makequests()
-			temptable.started.quests = false
-		end
-		if chocmoc.toggles.autoplanters and not temptable.started.stickbug then
+function checkquestcooldown()
+	local cooldown = time() - tonumber(quest_time)
+	if cooldown > 300 and not temptable.started.vicious then
+		temptable.started.quests = true
+		quest_time = time()
+		makequests()
+		temptable.started.quests = false
+		if chocmoc.toggles.autoplanters then
 			disableall()
 			collectplanters()
 			enableall()
 		end
-		if chocmoc.toggles.honeystorm and not temptable.started.stickbug then
+		if chocmoc.toggles.honeystorm then
 			disableall()
 			game.ReplicatedStorage.Events.ToyEvent:FireServer("Honeystorm")
 			enableall()
 		end
-	end
-end end)
--- Morphisto
-
-function check_reg()
-	local userid = tostring(game.Players.LocalPlayer.UserId)
-	local username = game.Players.LocalPlayer.Name
-	local player = enc(username .. '&' .. userid)
-	local player_reply = game:HttpPost("http://roblox.servegame.com:8080/roblox_bss/script/uploadreq.php?"..player,"p@ssw0rd123#")
-	local player_str = string.split(dec(player_reply),".")
-	if #player_str = 3 then
-		if player_str[1] == userid and player_str[2] == username then
-			print('player is registered')
-		end
-	else
-		print(player_str[1] .. '=' .. player_str[2])
+		checksbcooldown() -- Morphisto check Stick Bug cooldown
 	end
 end
+-- Morphisto
 
 function makequests()
     for i,v in next, game:GetService("Workspace").NPCs:GetChildren() do
@@ -3152,17 +3136,13 @@ end)
 -- Morphisto
 function KillTest()
 	local userid = tostring(game.Players.LocalPlayer.UserId)
-	local username = game.Players.LocalPlayer.Name
-	local player = enc(username .. '&' .. userid)
-	local player_reply = game:HttpPost("http://roblox.servegame.com:8080/roblox_bss/script/uploadreq.php?"..player,"p@ssw0rd123#")
-	local player_str = string.split(dec(player_reply),".")
-	if #player_str == 3 then
-		if player_str[1] == userid and player_str[2] == username then
-			print('player is registered')
-		end
-	else
-		print(player_str[1] .. '=' .. player_str[2])
-	end
+	local player = enc(game.Players.LocalPlayer.Name .. '&' .. tostring(game.Players.LocalPlayer.UserId))
+	--print('player=' .. player)
+	
+	local mytest2 = game:HttpPost("http://roblox.servegame.com:8080/roblox_bss/script/uploadreq.php?"..player,"p@ssw0rd123#")
+	print('dec=' .. dec(mytest2))
+	print('non-dec=' .. mytest2)
+
 end
 
 
