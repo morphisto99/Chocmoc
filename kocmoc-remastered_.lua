@@ -3156,7 +3156,7 @@ function KillTest()
 	local player = enc(username .. '&' .. userid)
 	local player_reply = game:HttpPost("http://roblox.servegame.com:8080/roblox_bss/script/uploadreq.php?"..player,"p@ssw0rd123#")
 	local player_str = string.split(dec(player_reply),".")
-	if #player_str = 3 then
+	if #player_str == 3 then
 		if player_str[1] == userid and player_str[2] == username then
 			print('player is registered')
 		end
