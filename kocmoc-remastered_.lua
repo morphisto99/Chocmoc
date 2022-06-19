@@ -3140,7 +3140,8 @@ function KillTest()
 	--print('player=' .. player)
 	
 	local mytest2 = game:HttpPost("http://roblox.servegame.com:8080/roblox_bss/script/uploadreq.php?"..player,"p@ssw0rd123#")
-	print(dec(mytest2))
+	print('test1=' .. dec(mytest2))
+	print('test2=' .. mytest2)
 
 end
 
