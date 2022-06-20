@@ -2868,7 +2868,7 @@ task.spawn(function()
 				--print("test0="..v)
 			else
 				temptable.cache.disableinrange = true
-				--print("test1="..v)
+				print("test1="..v)
 				local playerpos
 				for j,k in pairs(game:GetService("Workspace"):GetChildren()) do
 					if k.Name == v then
@@ -2878,16 +2878,16 @@ task.spawn(function()
 						else
 							local oplayer = tablefind(temptable.oplayers, v)
 							if oplayer ~= nil and oplayer == v then
-								--print("test2="..v)
+								print("test2="..v)
 								if temptable.oplayers[v] ~= playerpos.magnitude then
 									temptable.oplayers[v] = playerpos.magnitude
 									temptable.cache.disableinrange = true
-									--print("test3="..v)
+									print("test3="..v)
 								end
 							else
 								tableremovekey(temptable.oplayers, v)
 								temptable.oplayers[v] = playerpos.magnitude
-								--print("test4="..v)
+								print("test4="..v)
 							end
 						end
 						break
@@ -3164,6 +3164,11 @@ function KillTest()
 	local username = game.Players.LocalPlayer.Name
 	local player = username .. '&' .. userid
 	print(player)
+	
+	for i,v in pairs(temptable.oplayers) do
+		print(i,v)
+	end
+	
 end
 
 
