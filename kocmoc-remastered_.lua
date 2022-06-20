@@ -2833,7 +2833,8 @@ task.spawn(function()
 		local count = 1
 		local newplayers = false
 		local playerschanged = {}
-
+		temptable.cache.disableinrange = false
+		
 		for i,v in pairs(game.Players:GetChildren()) do
 			if not api.tablefind(temptable.players, v.Name) then
 				newplayers = true
@@ -2862,38 +2863,36 @@ task.spawn(function()
 				k.Parent:Destroy()
 			end
 		end
+		
 		for i,v in next, playerschanged do
-			if api.tablefind(chocmoc.wlplayers, v) then
-				temptable.cache.disableinrange = false
-				print("test0="..v)
-			else
-				temptable.cache.disableinrange = true
-				local playerpos
-				for j,k in pairs(game:GetService("Workspace"):GetChildren()) do
-					if k.Name == v then
-						playerpos = game.Workspace:FindFirstChild(v).HumanoidRootPart.Position
-						if next(temptable.oplayers) == nil then
-							temptable.oplayers[v] = playerpos.magnitude
-						else
-							local oplayer = tablefind(temptable.oplayers, v)
-							if oplayer ~= nil and oplayer == v then
-								if temptable.oplayers[v] ~= playerpos.magnitude then
-									temptable.oplayers[v] = playerpos.magnitude
-									temptable.cache.disableinrange = true
-								end
-							else
-								tableremovekey(temptable.oplayers, v)
+			local playerpos
+			for j,k in pairs(game:GetService("Workspace"):GetChildren()) do
+				if k.Name == v and not api.tablefind(chocmoc.wlplayers, v) then
+					playerpos = game.Workspace:FindFirstChild(v).HumanoidRootPart.Position
+					if next(temptable.oplayers) == nil then
+						temptable.oplayers[v] = playerpos.magnitude
+						temptable.cache.disableinrange = true
+					else
+						local oplayer = tablefind(temptable.oplayers, v)
+						if oplayer ~= nil and oplayer == v then
+							if temptable.oplayers[v] ~= playerpos.magnitude then
 								temptable.oplayers[v] = playerpos.magnitude
+								temptable.cache.disableinrange = true
+							else
+								temptable.cache.disableinrange = false
 							end
+						else
+							tableremovekey(temptable.oplayers, v)
+							temptable.oplayers[v] = playerpos.magnitude
+							temptable.cache.disableinrange = true
 						end
-						break
 					end
-				end
-				if playerpos ~= nil then
-					if (playerpos-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude < 150 then
-						uiwlplayers:CreateButton('This player ' .. v .. ' is in range.', function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace:FindFirstChild(v).HumanoidRootPart.CFrame end)
-						--uiwlplayers:CreateButton('This player ' .. v .. ' is in range:'..playerpos.magnitude, function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace:FindFirstChild(v).HumanoidRootPart.CFrame end)
-					end
+				end			
+			end
+			if playerpos ~= nil then
+				if (playerpos-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude < 150 then
+					uiwlplayers:CreateButton('This player ' .. v .. ' is in range.', function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace:FindFirstChild(v).HumanoidRootPart.CFrame end)
+					--uiwlplayers:CreateButton('This player ' .. v .. ' is in range:'..playerpos.magnitude, function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace:FindFirstChild(v).HumanoidRootPart.CFrame end)
 				end
 			end
 		end
