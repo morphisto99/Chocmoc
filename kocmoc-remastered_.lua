@@ -2886,7 +2886,7 @@ task.spawn(function()
 						else
 							tableremovekey(temptable.oplayers, v)
 							temptable.oplayers[v] = playerpos.magnitude
-							--temptable.cache.disableinrange = true
+							temptable.cache.disableinrange = true
 						end
 					end
 				end			
@@ -2902,29 +2902,29 @@ task.spawn(function()
 		if chocmoc.toggles.smartautofarm then
 			if temptable.cache.disableinrange then -- disable when other players in range
 				if chocmoc.toggles.killwindy then
-					uikillwindy:SetState(false)
 					chocmoc.toggles.killwindy = false
+					uikillwindy:SetState(false)
 				end
 				if chocmoc.toggles.farmsprouts then
-					uifarmsprouts:SetState(false) 
 					chocmoc.toggles.farmsprouts = false
+					uifarmsprouts:SetState(false)
 				end
 				if chocmoc.toggles.killstickbug then
-					uikillstickbug:SetState(false) 
 					chocmoc.toggles.killstickbug = false
+					uikillstickbug:SetState(false) 
 				end		
 			else
 				if not chocmoc.toggles.killwindy then
-					uikillwindy:SetState(true)
 					chocmoc.toggles.killwindy = true -- enable Windy Bee when no other players in game
+					uikillwindy:SetState(true)
 				end
 				if not chocmoc.toggles.farmsprouts then
-					uifarmsprouts:SetState(true) 
 					chocmoc.toggles.farmsprouts = true
+					uifarmsprouts:SetState(true) 
 				end	
 				if not chocmoc.toggles.killstickbug then
-					uikillstickbug:SetState(true) 
 					chocmoc.toggles.killstickbug = true
+					uikillstickbug:SetState(true)
 				end			
 			end
 		end
