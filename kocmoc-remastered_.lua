@@ -965,11 +965,15 @@ function makequests()
                     api.tween(2,CFrame.new(v.Platform.Position.X, v.Platform.Position.Y+3, v.Platform.Position.Z))
                     task.wait(3)
                 end
-                for b,z in next, getconnections(button) do    z.Function()    end
+                for b,z in next, getconnections(button) do
+					z.Function()
+				end
                 task.wait(8)
                 if image.ImageTransparency == 0 then
-					print("scrolling thru quest dialog..")
-                    --for b,z in next, getconnections(button) do    z.Function()    end -- need to fix bug
+					print("image.ImageTransparency="..image.ImageTransparency)
+                    for b,z in next, getconnections(button) do
+						z.Function()
+					end -- need to fix bug
                 end
                 task.wait(2)
             end
@@ -2156,7 +2160,7 @@ task.spawn(function()
 end)
 
 task.spawn(function() while task.wait() do
-    if chocmoc.toggles.killwindy and temptable.detected.windy and not temptable.converting and not temptable.started.vicious and not temptable.started.mondo and not temptable.started.monsters and not temptable.started.stickbug then
+    if chocmoc.toggles.killwindy and temptable.detected.windy and not temptable.converting and not temptable.started.vicious and not temptable.started.mondo and not temptable.started.monsters and not temptable.started.stickbug and not temptable.started.stumpsnail then
         temptable.started.windy = true
         wlvl = "" aw = false awb = false -- some variable for autowindy, yk?
         disableall()
