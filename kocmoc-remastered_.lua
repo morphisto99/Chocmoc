@@ -968,7 +968,8 @@ function makequests()
                 for b,z in next, getconnections(button) do    z.Function()    end
                 task.wait(8)
                 if image.ImageTransparency == 0 then
-                    for b,z in next, getconnections(button) do    z.Function()    end
+					print("scrolling thru quest dialog..")
+                    --for b,z in next, getconnections(button) do    z.Function()    end -- need to fix bug
                 end
                 task.wait(2)
             end
