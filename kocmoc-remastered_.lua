@@ -1779,7 +1779,7 @@ task.spawn(function() while task.wait() do
         end
         
         if chocmoc.toggles.autofarm then
-		if chocmoc.toggles.autodoquest and game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.Menus.Children.Quests.Content:FindFirstChild("Frame") and not chocmoc.toggles.farmboostedfield then
+		if chocmoc.toggles.autodoquest and game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.Menus.Children.Quests.Content:FindFirstChild("Frame") and not chocmoc.toggles.farmboostedfield and not temptable.started.ant then
             for i,v in next, game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.Menus.Children.Quests:GetDescendants() do
                 if v.Name == "Description" then
                     if string.match(v.Parent.Parent.TitleBar.Text, chocmoc.vars.npcprefer) or chocmoc.vars.npcprefer == "All Quests" and not string.find(v.Text, "Puffshroom") then
