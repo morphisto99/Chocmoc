@@ -464,6 +464,7 @@ function disableall()
     if chocmoc.toggles.farmrares then -- Morphisto
 		temptable.cache.farmrares = true -- Morphisto
 		chocmoc.toggles.farmrares = false -- Morphisto
+		uifarmrares:SetState(false)
 	end
 	if chocmoc.toggles.farmpuffshrooms then -- Morphisto
 		temptable.cache.farmpuffshrooms = true -- Morphisto
@@ -514,6 +515,7 @@ end
 function enableall()
     if temptable.cache.farmrares then -- Morphisto
 		chocmoc.toggles.farmrares = true -- Morphisto
+		uifarmrares:SetState(true)
 		temptable.cache.farmrares = false -- Morphisto
 	end
 	if temptable.cache.farmpuffshrooms then -- Morphisto
