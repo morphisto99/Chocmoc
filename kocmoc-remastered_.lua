@@ -2886,7 +2886,7 @@ task.spawn(function()
 						else
 							tableremovekey(temptable.oplayers, v)
 							temptable.oplayers[v] = playerpos.magnitude
-							temptable.cache.disableinrange = true
+							--temptable.cache.disableinrange = true
 						end
 					end
 				end			
