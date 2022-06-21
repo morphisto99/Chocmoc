@@ -2886,7 +2886,7 @@ task.spawn(function()
 							end
 						else
 							-- when other player not found in temptable.oplayers table
-							temptable.oplayers = {}
+							--temptable.oplayers = {}
 							temptable.oplayers[v] = playerpos.magnitude
 							temptable.cache.disableinrange = true
 						end
