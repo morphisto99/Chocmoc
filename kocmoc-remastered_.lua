@@ -2866,6 +2866,12 @@ task.spawn(function()
 			end
 		end
 		
+		for i,v in next, temptable.oplayers do
+			if not api.tablefind(playerschanged, v)
+			
+			end
+		end
+		
 		for i,v in next, playerschanged do
 			local playerpos
 			for j,k in pairs(game:GetService("Workspace"):GetChildren()) do
@@ -2885,7 +2891,7 @@ task.spawn(function()
 							end
 						else
 							-- when other player not found in temptable.oplayers table
-							--tableremovekey(temptable.oplayers, v)
+							temptable.oplayers = {}
 							temptable.oplayers[v] = playerpos.magnitude
 							temptable.cache.disableinrange = true
 						end
