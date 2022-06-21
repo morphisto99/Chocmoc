@@ -2877,14 +2877,12 @@ task.spawn(function()
 					else
 						local oplayer = tablefind(temptable.oplayers, v)
 						if oplayer ~= nil and oplayer == v then
-							print('test3: '..temptable.oplayers[v]..'='..playerpos.magnitude)
 							if temptable.oplayers[v] ~= playerpos.magnitude then -- when other players has moved around
 								temptable.oplayers[v] = playerpos.magnitude
 								temptable.cache.disableinrange = true
 							else
 								temptable.cache.disableinrange = false -- when other players exist but hasn't moved or is afk
 							end
-							print('temptable.cache.disableinrange='..tostring(temptable.cache.disableinrange))
 						else
 							-- when other player not found in temptable.oplayers table
 							--tableremovekey(temptable.oplayers, v)
