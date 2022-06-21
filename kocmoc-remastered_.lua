@@ -915,9 +915,7 @@ task.spawn(function() while task.wait(300) do
 			checksbcooldown()
 		end
 		if chocmoc.toggles.autoquest and not temptable.started.stickbug then
-			temptable.started.quests = true
 			makequests()
-			temptable.started.quests = false
 		end
 		if chocmoc.toggles.autoplanters and not temptable.started.stickbug then
 			disableall()
@@ -955,6 +953,8 @@ function check_reg()
 end
 
 function makequests()
+	temptable.started.quests = true
+	disableall()
     for i,v in next, game:GetService("Workspace").NPCs:GetChildren() do
         if v.Name ~= "Ant Challenge Info" and v.Name ~= "Bubble Bee Man 2" and v.Name ~= "Wind Shrine" and v.Name ~= "Gummy Bear" then if v:FindFirstChild("Platform") then if v.Platform:FindFirstChild("AlertPos") then if v.Platform.AlertPos:FindFirstChild("AlertGui") then if v.Platform.AlertPos.AlertGui:FindFirstChild("ImageLabel") then
             image = v.Platform.AlertPos.AlertGui.ImageLabel
@@ -980,6 +980,8 @@ function makequests()
             end
         end     
     end end end end end
+	temptable.started.quests = false
+	enableall()
 end
 
 getgenv().Tvk1 = {true,"💖"}
@@ -2102,7 +2104,6 @@ task.spawn(function() while task.wait() do
             temptable.act = temptable.act + 1
             task.wait(6)
             if chocmoc.toggles.autoant and not game:GetService("Workspace").Toys["Ant Challenge"].Busy.Value and rtsg().Eggs.AntPass > 0 then farmant() end
-            if chocmoc.toggles.autoquest then makequests() end
             if chocmoc.toggles.autokillmobs then 
                 if temptable.act >= chocmoc.vars.monstertimer then
                     temptable.started.monsters = true
