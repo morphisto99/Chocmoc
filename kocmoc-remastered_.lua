@@ -2839,6 +2839,7 @@ task.spawn(function()
 		for i,v in pairs(game.Players:GetChildren()) do
 			if not api.tablefind(temptable.players, v.Name) then
 				newplayers = true
+				temptable.oplayers = {}
 			end
 			table.insert(playerschanged, v.Name)
 		end
@@ -2869,21 +2870,25 @@ task.spawn(function()
 			local playerpos
 			for j,k in pairs(game:GetService("Workspace"):GetChildren()) do
 				if k.Name == v and not api.tablefind(chocmoc.wlplayers, v) then
+					print('test1: '..k.Name..'='..v)
 					playerpos = game.Workspace:FindFirstChild(v).HumanoidRootPart.Position
 					if next(temptable.oplayers) == nil then
 						temptable.oplayers[v] = playerpos.magnitude
 						temptable.cache.disableinrange = true
 					else
 						local oplayer = tablefind(temptable.oplayers, v)
+						print('test2: '..oplayer..'='..v)
 						if oplayer ~= nil and oplayer == v then
-							if temptable.oplayers[v] ~= playerpos.magnitude then
+							print('test3: '..temptable.oplayers[v]..'='..playerpos.magnitude)
+							if temptable.oplayers[v] ~= playerpos.magnitude then -- when other players has moved around
 								temptable.oplayers[v] = playerpos.magnitude
 								temptable.cache.disableinrange = true
 							else
-								temptable.cache.disableinrange = false
+								temptable.cache.disableinrange = false -- when other players exist but hasn't moved or is afk
 							end
 						else
-							tableremovekey(temptable.oplayers, v)
+							-- when other player not found in temptable.oplayers table
+							--tableremovekey(temptable.oplayers, v)
 							temptable.oplayers[v] = playerpos.magnitude
 							temptable.cache.disableinrange = true
 						end
