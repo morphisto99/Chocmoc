@@ -915,7 +915,9 @@ task.spawn(function() while task.wait(300) do
 			checksbcooldown()
 		end
 		if chocmoc.toggles.autoquest and not temptable.started.stickbug then
+			temptable.started.quests = true
 			makequests()
+			temptable.started.quests = false
 		end
 		if chocmoc.toggles.autoplanters and not temptable.started.stickbug then
 			disableall()
@@ -2889,6 +2891,7 @@ task.spawn(function()
 							end
 						else
 							-- when other player not found in temptable.oplayers table
+							--tableremovekey(temptable.oplayers, v) -- remove if previous other already left game
 							temptable.oplayers = {}
 							temptable.oplayers[v] = playerpos.magnitude
 							temptable.cache.disableinrange = true
