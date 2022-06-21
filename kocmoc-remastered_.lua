@@ -2957,6 +2957,7 @@ end
 function checksbcooldown()
 	local cooldown = time() - tonumber(stickbug_time)
 	--1800 sec is 30mins
+	print('sb cooldown=' .. tostring(cooldown))
 	if cooldown > 1800 and not temptable.started.vicious and not temptable.started.windy then
 		disableall()
 		if chocmoc.toggles.autoquest then
