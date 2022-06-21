@@ -2884,7 +2884,7 @@ task.spawn(function()
 							else
 								temptable.cache.disableinrange = false -- when other players exist but hasn't moved or is afk
 							end
-							print('temptable.cache.disableinrange='..temptable.cache.disableinrange)
+							print('temptable.cache.disableinrange='..tostring(temptable.cache.disableinrange))
 						else
 							-- when other player not found in temptable.oplayers table
 							--tableremovekey(temptable.oplayers, v)
