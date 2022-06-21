@@ -464,7 +464,6 @@ function disableall()
     if chocmoc.toggles.farmrares then -- Morphisto
 		temptable.cache.farmrares = true -- Morphisto
 		chocmoc.toggles.farmrares = false -- Morphisto
-		uifarmrares:SetState(false)
 	end
 	if chocmoc.toggles.farmpuffshrooms then -- Morphisto
 		temptable.cache.farmpuffshrooms = true -- Morphisto
@@ -515,7 +514,6 @@ end
 function enableall()
     if temptable.cache.farmrares then -- Morphisto
 		chocmoc.toggles.farmrares = true -- Morphisto
-		uifarmrares:SetState(true)
 		temptable.cache.farmrares = false -- Morphisto
 	end
 	if temptable.cache.farmpuffshrooms then -- Morphisto
@@ -915,7 +913,9 @@ task.spawn(function() while task.wait(300) do
 			checksbcooldown()
 		end
 		if chocmoc.toggles.autoquest and not temptable.started.stickbug then
+			temptable.started.quests = true
 			makequests()
+			temptable.started.quests = false
 		end
 		if chocmoc.toggles.autoplanters and not temptable.started.stickbug then
 			disableall()
@@ -970,8 +970,9 @@ function makequests()
 				end
                 task.wait(8)
                 if image.ImageTransparency == 0 then
+					print("image.ImageTransparency="..image.ImageTransparency)
                     for b,z in next, getconnections(button) do
-						z.Function() -- bug
+						z.Function()
 					end -- need to fix bug
                 end
                 task.wait(2)
@@ -2832,12 +2833,10 @@ task.spawn(function()
 		local count = 1
 		local newplayers = false
 		local playerschanged = {}
-		temptable.cache.disableinrange = false
-		
+
 		for i,v in pairs(game.Players:GetChildren()) do
 			if not api.tablefind(temptable.players, v.Name) then
 				newplayers = true
-				temptable.oplayers = {}
 			end
 			table.insert(playerschanged, v.Name)
 		end
@@ -2863,43 +2862,41 @@ task.spawn(function()
 				k.Parent:Destroy()
 			end
 		end
-		
-		for i,v in next, temptable.oplayers do
-			if not api.tablefind(playerschanged, v)
-			
-			end
-		end
-		
 		for i,v in next, playerschanged do
-			local playerpos
-			for j,k in pairs(game:GetService("Workspace"):GetChildren()) do
-				if k.Name == v and not api.tablefind(chocmoc.wlplayers, v) then
-					playerpos = game.Workspace:FindFirstChild(v).HumanoidRootPart.Position
-					if next(temptable.oplayers) == nil then
-						temptable.oplayers[v] = playerpos.magnitude
-						temptable.cache.disableinrange = true
-					else
-						local oplayer = tablefind(temptable.oplayers, v)
-						if oplayer ~= nil and oplayer == v then
-							if temptable.oplayers[v] ~= playerpos.magnitude then -- when other players has moved around
-								temptable.oplayers[v] = playerpos.magnitude
-								temptable.cache.disableinrange = true
-							else
-								temptable.cache.disableinrange = false -- when other players exist but hasn't moved or is afk
-							end
-						else
-							-- when other player not found in temptable.oplayers table
-							temptable.oplayers = {}
+			if api.tablefind(chocmoc.wlplayers, v) then
+				temptable.cache.disableinrange = false
+				print("test0="..v)
+			else
+				temptable.cache.disableinrange = true
+				local playerpos
+				for j,k in pairs(game:GetService("Workspace"):GetChildren()) do
+					if k.Name == v then
+						print('test1: '..k.Name..'='..v)
+						playerpos = game.Workspace:FindFirstChild(v).HumanoidRootPart.Position
+						if next(temptable.oplayers) == nil then
 							temptable.oplayers[v] = playerpos.magnitude
-							temptable.cache.disableinrange = true
+						else
+							local oplayer = tablefind(temptable.oplayers, v)
+							print('test2: '..oplayer..'='..v)
+							if oplayer ~= nil and oplayer == v then
+								print('test3: '..temptable.oplayers[v]..'='..playerpos.magnitude)
+								if temptable.oplayers[v] ~= playerpos.magnitude then
+									temptable.oplayers[v] = playerpos.magnitude
+									temptable.cache.disableinrange = true
+								end
+							else
+								tableremovekey(temptable.oplayers, v)
+								temptable.oplayers[v] = playerpos.magnitude
+							end
 						end
+						break
 					end
-				end			
-			end
-			if playerpos ~= nil then
-				if (playerpos-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude < 150 then
-					uiwlplayers:CreateButton('This player ' .. v .. ' is in range.', function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace:FindFirstChild(v).HumanoidRootPart.CFrame end)
-					--uiwlplayers:CreateButton('This player ' .. v .. ' is in range:'..playerpos.magnitude, function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace:FindFirstChild(v).HumanoidRootPart.CFrame end)
+				end
+				if playerpos ~= nil then
+					if (playerpos-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude < 150 then
+						uiwlplayers:CreateButton('This player ' .. v .. ' is in range.', function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace:FindFirstChild(v).HumanoidRootPart.CFrame end)
+						--uiwlplayers:CreateButton('This player ' .. v .. ' is in range:'..playerpos.magnitude, function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace:FindFirstChild(v).HumanoidRootPart.CFrame end)
+					end
 				end
 			end
 		end
@@ -2907,29 +2904,29 @@ task.spawn(function()
 		if chocmoc.toggles.smartautofarm then
 			if temptable.cache.disableinrange then -- disable when other players in range
 				if chocmoc.toggles.killwindy then
-					chocmoc.toggles.killwindy = false
 					uikillwindy:SetState(false)
+					chocmoc.toggles.killwindy = false
 				end
 				if chocmoc.toggles.farmsprouts then
+					uifarmsprouts:SetState(false) 
 					chocmoc.toggles.farmsprouts = false
-					uifarmsprouts:SetState(false)
 				end
 				if chocmoc.toggles.killstickbug then
-					chocmoc.toggles.killstickbug = false
 					uikillstickbug:SetState(false) 
+					chocmoc.toggles.killstickbug = false
 				end		
 			else
 				if not chocmoc.toggles.killwindy then
-					chocmoc.toggles.killwindy = true -- enable Windy Bee when no other players in game
 					uikillwindy:SetState(true)
+					chocmoc.toggles.killwindy = true -- enable Windy Bee when no other players in game
 				end
 				if not chocmoc.toggles.farmsprouts then
-					chocmoc.toggles.farmsprouts = true
 					uifarmsprouts:SetState(true) 
+					chocmoc.toggles.farmsprouts = true
 				end	
 				if not chocmoc.toggles.killstickbug then
+					uikillstickbug:SetState(true) 
 					chocmoc.toggles.killstickbug = true
-					uikillstickbug:SetState(true)
 				end			
 			end
 		end
