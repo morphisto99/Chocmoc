@@ -911,7 +911,7 @@ end
 -- Morphisto
 task.spawn(function() while task.wait(300) do
 	if not temptable.started.vicious and not temptable.started.windy and not temptable.started.stickbug then
-		if chocmoc.toggles.stickbug then
+		if chocmoc.toggles.killstickbug then
 			checksbcooldown()
 		end
 		if chocmoc.toggles.autoquest and not temptable.started.stickbug then
