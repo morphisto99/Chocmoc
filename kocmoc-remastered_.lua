@@ -972,9 +972,8 @@ function makequests()
 				end
                 task.wait(8)
                 if image.ImageTransparency == 0 then
-					print("image.ImageTransparency="..image.ImageTransparency)
                     for b,z in next, getconnections(button) do
-						z.Function()
+						z.Function() -- bug
 					end -- need to fix bug
                 end
                 task.wait(2)
