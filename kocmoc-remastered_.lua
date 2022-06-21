@@ -2870,14 +2870,12 @@ task.spawn(function()
 			local playerpos
 			for j,k in pairs(game:GetService("Workspace"):GetChildren()) do
 				if k.Name == v and not api.tablefind(chocmoc.wlplayers, v) then
-					print('test1: '..k.Name..'='..v)
 					playerpos = game.Workspace:FindFirstChild(v).HumanoidRootPart.Position
 					if next(temptable.oplayers) == nil then
 						temptable.oplayers[v] = playerpos.magnitude
 						temptable.cache.disableinrange = true
 					else
 						local oplayer = tablefind(temptable.oplayers, v)
-						print('test2: '..oplayer..'='..v)
 						if oplayer ~= nil and oplayer == v then
 							print('test3: '..temptable.oplayers[v]..'='..playerpos.magnitude)
 							if temptable.oplayers[v] ~= playerpos.magnitude then -- when other players has moved around
@@ -2886,6 +2884,7 @@ task.spawn(function()
 							else
 								temptable.cache.disableinrange = false -- when other players exist but hasn't moved or is afk
 							end
+							print('temptable.cache.disableinrange='..temptable.cache.disableinrange)
 						else
 							-- when other player not found in temptable.oplayers table
 							--tableremovekey(temptable.oplayers, v)
