@@ -461,6 +461,7 @@ function farm(trying)
 end
 
 function disableall()
+	print('disableall() activated!')
     if chocmoc.toggles.farmrares then -- Morphisto
 		temptable.cache.farmrares = true -- Morphisto
 		chocmoc.toggles.farmrares = false -- Morphisto
@@ -513,6 +514,7 @@ function disableall()
 end
 
 function enableall()
+	print('enableall() activated!')
     if temptable.cache.farmrares then -- Morphisto
 		chocmoc.toggles.farmrares = true -- Morphisto
 		uifarmrares:SetState(true)
@@ -1305,7 +1307,8 @@ wayp:CreateDropdown("Toys Teleports", toystable, function(Option) d = game:GetSe
 wayp:CreateButton("Teleport to hive", function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Players").LocalPlayer.SpawnPos.Value end)
 wayp:CreateButton("print location", function() print(game.Players.LocalPlayer.Character.HumanoidRootPart.Position) end) -- Morphisto
 wayp:CreateDropdown("NPC Teleports", {"Black Bear","Brown Bear","Bucko Bee","Honey Bee","Panda Bear","Polar Bear","Riley Bee","Science Bear","Spirit Bear","Science Bear","Mother Bear","Sun Bear","Stick Bug","Onett","Gummy Lair","Bubble Bee Man","Meteor Shower","Demon Mask","Diamond Mask"}, function(Option) game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = npctable[Option] end) -- Morphisto
-wayp:CreateButton("Test", function() KillTest() end) -- Morphisto
+wayp:CreateButton("Test1", function() KillTest() end) -- Morphisto
+wayp:CreateButton("Test2", function() KillTest2() end) -- Morphisto
 
 local useitems = itemstab:CreateSection("Use Items")
 
@@ -2192,6 +2195,7 @@ task.spawn(function() while task.wait() do
 					awb = true
 				end
 				
+				print('temptable.windy=' .. tostring(temptable.windy))
 				if awb and temptable.windy.Name == "Windy" then
 					api.humanoidrootpart().CFrame = temptable.gacf(temptable.windy, 25) temptable.float = true task.wait()
 				end
@@ -3161,15 +3165,18 @@ end)
 
 -- Morphisto
 function KillTest()
-	local userid = tostring(game.Players.LocalPlayer.UserId)
-	local username = game.Players.LocalPlayer.Name
-	local player = username .. '&' .. userid
-	print(player)
-	
 	for i,v in pairs(temptable.oplayers) do
 		print(i,v)
 	end
 	
+	print('test disableall()')
+	disableall()
+end
+-- Morphisto
+function KillTest2()
+
+	print('test enableall()')
+	enableall()
 end
 
 
