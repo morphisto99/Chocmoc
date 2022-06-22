@@ -2183,14 +2183,16 @@ task.spawn(function() while task.wait() do
                     end
                 end
             end
-            if not awb then
-				api.tween(1,temptable.gacf(temptable.windy, 5)) -- tries to bump Windy Bee in Cloud -- Morphisto
-				task.wait(1)
-				api.tween(1,temptable.gacf(temptable.windy, 4)) -- tries to bump Windy Bee in Cloud -- Morphisto
-				task.wait(1)
-				awb = true
-			end
+
 			if temptable.windy ~= nil then
+				if not awb then
+					api.tween(1,temptable.gacf(temptable.windy, 5)) -- tries to bump Windy Bee in Cloud -- Morphisto
+					task.wait(1)
+					api.tween(1,temptable.gacf(temptable.windy, 4)) -- tries to bump Windy Bee in Cloud -- Morphisto
+					task.wait(1)
+					awb = true
+				end
+				
 				if awb and temptable.windy.Name == "Windy" then
 					api.humanoidrootpart().CFrame = temptable.gacf(temptable.windy, 25) temptable.float = true task.wait()
 				end
