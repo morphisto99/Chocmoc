@@ -2871,35 +2871,36 @@ task.spawn(function()
 				k.Parent:Destroy()
 			end
 		end
-			
-		for j,k in pairs(game:GetService("Workspace"):GetChildren()) do
-			local playerpos
-			if not api.tablefind(chocmoc.wlplayers, k.Name) then
-				table.insert(newotherplayers, k.Name)
-				playerpos = game.Workspace:FindFirstChild(k.Name).HumanoidRootPart.Position
-				if next(temptable.oplayers) == nil then
-					temptable.oplayers[k.Name] = playerpos.magnitude
-					temptable.cache.disableinrange = true
-				else
-					if tablefind(temptable.oplayers, k.Name) then
-						if temptable.oplayers[k.Name] ~= playerpos.magnitude then -- when other players has moved around
+		
+		for i,v in next, playerschanged do
+			for j,k in pairs(game:GetService("Workspace"):GetChildren()) do
+				local playerpos
+				if k.Name == v and not api.tablefind(chocmoc.wlplayers, k.Name) then
+					table.insert(newotherplayers, k.Name)
+					playerpos = game.Workspace:FindFirstChild(k.Name).HumanoidRootPart.Position
+					if next(temptable.oplayers) == nil then
+						temptable.oplayers[k.Name] = playerpos.magnitude
+						temptable.cache.disableinrange = true
+					else
+						if tablefind(temptable.oplayers, k.Name) then
+							if temptable.oplayers[k.Name] ~= playerpos.magnitude then -- when other players has moved around
+								temptable.oplayers[k.Name] = playerpos.magnitude
+								temptable.cache.disableinrange = true
+							end
+						else
+							-- when other player not found in temptable.oplayers table
 							temptable.oplayers[k.Name] = playerpos.magnitude
 							temptable.cache.disableinrange = true
 						end
-					else
-						-- when other player not found in temptable.oplayers table
-						temptable.oplayers[k.Name] = playerpos.magnitude
-						temptable.cache.disableinrange = true
 					end
-				end
-				
-				if playerpos ~= nil then
-					if (playerpos-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude < 150 then
-						uiwlplayers:CreateButton('This player ' .. k.Name .. ' is in range.', function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace:FindFirstChild(k.Name).HumanoidRootPart.CFrame end)
+					
+					if playerpos ~= nil then
+						if (playerpos-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude < 150 then
+							uiwlplayers:CreateButton('This player ' .. k.Name .. ' is in range.', function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace:FindFirstChild(k.Name).HumanoidRootPart.CFrame end)
+						end
 					end
 				end
 			end
-
 		end
 		
 		if chocmoc.toggles.smartautofarm then
