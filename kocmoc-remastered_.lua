@@ -2162,7 +2162,7 @@ task.spawn(function() while task.wait() do
     if chocmoc.toggles.killwindy and temptable.detected.windy and not temptable.converting and not temptable.started.vicious and not temptable.started.mondo and not temptable.started.monsters and not temptable.started.stickbug and not temptable.started.stumpsnail then
         temptable.started.windy = true
         wlvl = "" aw = false awb = false -- some variable for autowindy, yk?
-        disableall()
+        --disableall()
         while chocmoc.toggles.killwindy and temptable.detected.windy do
             if not aw then
                 for i,v in pairs(workspace.Monsters:GetChildren()) do
@@ -2200,7 +2200,7 @@ task.spawn(function() while task.wait() do
 			end
 			task.wait()
         end 
-        enableall()
+        --enableall()
         temptable.float = false
         temptable.started.windy = false
     end
