@@ -339,6 +339,7 @@ antpart.CanCollide = false
 -- config
 
 stickbug_time = time() -- Morphisto
+chk5min_time = time() -- Morphisto
 
 getgenv().chocmoc = {
     rares = {},
@@ -911,7 +912,7 @@ function getcrosshairs(v)
 end
 
 -- Morphisto
-task.spawn(function() while task.wait(300) do
+function check5minstasks()
 	if not temptable.started.vicious and not temptable.started.windy and not temptable.started.stickbug then
 		if chocmoc.toggles.killstickbug then
 			checksbcooldown()
@@ -920,18 +921,14 @@ task.spawn(function() while task.wait(300) do
 			makequests()
 		end
 		if chocmoc.toggles.autoplanters and not temptable.started.stickbug then
-			disableall()
 			collectplanters()
-			enableall()
 		end
 		if chocmoc.toggles.honeystorm and not temptable.started.stickbug then
-			disableall()
 			game.ReplicatedStorage.Events.ToyEvent:FireServer("Honeystorm")
-			enableall()
 		end
 	end
 	check_reg()
-end end)
+end
 -- Morphisto
 
 function check_reg()
@@ -956,7 +953,6 @@ end
 
 function makequests()
 	temptable.started.quests = true
-	disableall()
     for i,v in next, game:GetService("Workspace").NPCs:GetChildren() do
         if v.Name ~= "Ant Challenge Info" and v.Name ~= "Bubble Bee Man 2" and v.Name ~= "Wind Shrine" and v.Name ~= "Gummy Bear" then if v:FindFirstChild("Platform") then if v.Platform:FindFirstChild("AlertPos") then if v.Platform.AlertPos:FindFirstChild("AlertGui") then if v.Platform.AlertPos.AlertGui:FindFirstChild("ImageLabel") then
             image = v.Platform.AlertPos.AlertGui.ImageLabel
@@ -982,7 +978,6 @@ function makequests()
         end     
     end end end end end
 	temptable.started.quests = false
-	enableall()
 end
 
 getgenv().Tvk1 = {true,"💖"}
@@ -2085,6 +2080,8 @@ task.spawn(function() while task.wait() do
                 if chocmoc.toggles.farmunderballoons then getballoons() end
                 if not chocmoc.toggles.donotfarmtokens and done then gettoken() end
                 if not chocmoc.toggles.farmflower then getflower() end
+				local cooldown = time() - tonumber(chk5min_time)
+				if cooldown > 300 then chk5min_time = time() check5minstasks() end
             end
         elseif tonumber(pollenpercentage) >= tonumber(chocmoc.vars.convertat) then
             if not chocmoc.toggles.disableconversion then
