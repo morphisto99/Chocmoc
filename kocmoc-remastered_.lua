@@ -3158,10 +3158,11 @@ end
 -- Morphisto
 function KillTest2()
 
-	if next(temptable.oplayers) ~= nil then
-		for i,v in pairs(temptable.oplayers) do
-			print(i,v)
-			if not tablefind(newotherplayers, i) then
+	for i,v in pairs(temptable.oplayers) do
+		print(i,v)
+		for j,k in next, newotherplayers do
+			print('k=' .. k)
+			if i ~= k then
 				print(i .. ' is not in newotherplayers')
 				tableremovekey(temptable.oplayers, i)
 			end
