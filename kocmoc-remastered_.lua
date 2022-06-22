@@ -2901,12 +2901,6 @@ task.spawn(function()
 			end
 
 		end
-
-		for i,v in pairs(temptable.oplayers) do
-			if not tablefind(newotherplayers, i) then
-				tableremovekey(temptable.oplayers, i)
-			end
-		end
 		
 		if chocmoc.toggles.smartautofarm then
 			if temptable.cache.disableinrange then -- disable when other players in range
@@ -3163,8 +3157,15 @@ end
 -- Morphisto
 function KillTest2()
 
-	print('test enableall()')
-	enableall()
+	if next(temptable.oplayers) ~= nil then
+		for i,v in pairs(temptable.oplayers) do
+			print(i,v)
+			if not tablefind(newotherplayers, i) then
+				print(i .. ' is not in newotherplayers')
+				tableremovekey(temptable.oplayers, i)
+			end
+		end
+	end
 end
 
 
