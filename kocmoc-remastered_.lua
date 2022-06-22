@@ -962,11 +962,10 @@ function makequests()
             if image.ImageTransparency == 0 then
                 if chocmoc.toggles.tptonpc then
                     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Platform.Position.X, v.Platform.Position.Y+3, v.Platform.Position.Z)
-                    task.wait(1)
                 else
                     api.tween(2,CFrame.new(v.Platform.Position.X, v.Platform.Position.Y+3, v.Platform.Position.Z))
-                    task.wait(3)
                 end
+				task.wait(3)
                 for b,z in next, getconnections(button) do
 					z.Function()
 				end
