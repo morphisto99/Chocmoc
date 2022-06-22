@@ -2839,6 +2839,7 @@ task.spawn(function()
 		local count = 1
 		local newplayers = false
 		local playerschanged = {}
+		local newotherplayers = {}
 		temptable.cache.disableinrange = false
 		
 		for i,v in pairs(game.Players:GetChildren()) do
@@ -2870,41 +2871,43 @@ task.spawn(function()
 				k.Parent:Destroy()
 			end
 		end
-		
-		for i,v in next, playerschanged do
+			
+		for j,k in pairs(game:GetService("Workspace"):GetChildren()) do
 			local playerpos
-			for j,k in pairs(game:GetService("Workspace"):GetChildren()) do
-				if k.Name == v and not api.tablefind(chocmoc.wlplayers, v) then
-					playerpos = game.Workspace:FindFirstChild(v).HumanoidRootPart.Position
-					if next(temptable.oplayers) == nil then
-						temptable.oplayers[v] = playerpos.magnitude
-						temptable.cache.disableinrange = true
-					else
-						local oplayer = tablefind(temptable.oplayers, v)
-						if oplayer ~= nil and oplayer == v then
-							if temptable.oplayers[v] ~= playerpos.magnitude then -- when other players has moved around
-								temptable.oplayers[v] = playerpos.magnitude
-								temptable.cache.disableinrange = true
-							else
-								temptable.cache.disableinrange = false -- when other players exist but hasn't moved or is afk
-							end
-						else
-							-- when other player not found in temptable.oplayers table
-							--temptable.oplayers = {}
-							temptable.oplayers[v] = playerpos.magnitude
+			if not api.tablefind(chocmoc.wlplayers, k.Name) then
+				table.insert(newotherplayers, k.Name)
+				playerpos = game.Workspace:FindFirstChild(k.Name).HumanoidRootPart.Position
+				if next(temptable.oplayers) == nil then
+					temptable.oplayers[k.Name] = playerpos.magnitude
+					temptable.cache.disableinrange = true
+				else
+					if tablefind(temptable.oplayers, k.Name) then
+						if temptable.oplayers[k.Name] ~= playerpos.magnitude then -- when other players has moved around
+							temptable.oplayers[k.Name] = playerpos.magnitude
 							temptable.cache.disableinrange = true
 						end
+					else
+						-- when other player not found in temptable.oplayers table
+						temptable.oplayers[k.Name] = playerpos.magnitude
+						temptable.cache.disableinrange = true
 					end
-				end			
-			end
-			if playerpos ~= nil then
-				if (playerpos-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude < 150 then
-					uiwlplayers:CreateButton('This player ' .. v .. ' is in range.', function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace:FindFirstChild(v).HumanoidRootPart.CFrame end)
-					--uiwlplayers:CreateButton('This player ' .. v .. ' is in range:'..playerpos.magnitude, function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace:FindFirstChild(v).HumanoidRootPart.CFrame end)
+				end
+				
+				if playerpos ~= nil then
+					if (playerpos-game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude < 150 then
+						uiwlplayers:CreateButton('This player ' .. k.Name .. ' is in range.', function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace:FindFirstChild(k.Name).HumanoidRootPart.CFrame end)
+					end
 				end
 			end
+
 		end
 
+		for i,v in pairs(temptable.oplayers) do
+			if not tablefind(newotherplayers, i) then
+				tableremovekey(temptable.oplayers, i)
+			end
+		end
+		
 		if chocmoc.toggles.smartautofarm then
 			if temptable.cache.disableinrange then -- disable when other players in range
 				if chocmoc.toggles.killwindy then
@@ -3156,8 +3159,6 @@ function KillTest()
 		print(i,v)
 	end
 	
-	print('test disableall()')
-	disableall()
 end
 -- Morphisto
 function KillTest2()
