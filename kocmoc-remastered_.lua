@@ -462,7 +462,6 @@ function farm(trying)
 end
 
 function disableall()
-	print('disableall() activated!')
     if chocmoc.toggles.farmrares then -- Morphisto
 		temptable.cache.farmrares = true -- Morphisto
 		chocmoc.toggles.farmrares = false -- Morphisto
@@ -515,7 +514,6 @@ function disableall()
 end
 
 function enableall()
-	print('enableall() activated!')
     if temptable.cache.farmrares then -- Morphisto
 		chocmoc.toggles.farmrares = true -- Morphisto
 		uifarmrares:SetState(true)
@@ -2955,13 +2953,7 @@ end
 function checksbcooldown()
 	local cooldown = time() - tonumber(stickbug_time)
 	--1800 sec is 30mins
-	print('sb cooldown=' .. tostring(cooldown))
 	if cooldown > 1800 and not temptable.started.vicious and not temptable.started.windy then
-		disableall()
-		if chocmoc.toggles.autoquest then
-			chocmoc.toggles.autoquest = false
-			uiautoquest:SetState(false)
-		end
 		for i,v in next, game:GetService("Workspace").NPCs:GetChildren() do
 			if v.Name == "Stick Bug" then
 				if v:FindFirstChild("Platform") then
@@ -2998,13 +2990,7 @@ function checksbcooldown()
 			temptable.sbready = true
 			mobsb:UpdateText("Stick Bug: Ready")
 		end
-		
-		if not chocmoc.toggles.autoquest then
-			chocmoc.toggles.autoquest = true
-			uiautoquest:SetState(true)
-		end
 		stickbug_time = time()
-		enableall()
 	end
 end
 -- Morphisto
