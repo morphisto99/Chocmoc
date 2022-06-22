@@ -2193,7 +2193,7 @@ task.spawn(function() while task.wait() do
 			
 			if awb and temptable.windy ~= nil then
 				print(temptable.windy)
-				if temptable.windy == "Windy" then
+				if temptable.windy.Name == "Windy" then
 					api.humanoidrootpart().CFrame = temptable.gacf(temptable.windy, 25)
 					temptable.float = true
 				end
