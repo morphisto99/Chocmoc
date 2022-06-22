@@ -2192,8 +2192,8 @@ task.spawn(function() while task.wait() do
 			end
 			
 			if awb and temptable.windy ~= nil then
-				print(temptable.windy)
-				if temptable.windy.Name == "Windy" then
+				--print(temptable.windy)
+				if temptable.windy == "Windy" then
 					api.humanoidrootpart().CFrame = temptable.gacf(temptable.windy, 25)
 					temptable.float = true
 				end
@@ -2903,6 +2903,17 @@ task.spawn(function()
 			end
 		end
 		
+		for i,v in pairs(temptable.oplayers) do
+			--print(i,v)
+			for j,k in next, newotherplayers do
+				--print('k=' .. k)
+				if i ~= k then
+					print(i .. ' is not in newotherplayers')
+					tableremovekey(temptable.oplayers, i)
+				end
+			end
+		end
+	
 		if chocmoc.toggles.smartautofarm then
 			if temptable.cache.disableinrange then -- disable when other players in range
 				if chocmoc.toggles.killwindy then
