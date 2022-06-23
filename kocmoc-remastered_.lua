@@ -2079,7 +2079,11 @@ task.spawn(function() while task.wait() do
                 if not chocmoc.toggles.donotfarmtokens and done then gettoken() end
                 if not chocmoc.toggles.farmflower then getflower() end
 				local cooldown = time() - tonumber(chk5min_time)
-				if stickbug_time == nil or cooldown > 300 then chk5min_time = time() check5minstasks() end
+				print(stickbug_time)
+				if stickbug_time == nil or cooldown > 300 then
+					print('test123')
+					chk5min_time = time() check5minstasks()
+				end
             end
         elseif tonumber(pollenpercentage) >= tonumber(chocmoc.vars.convertat) then
             if not chocmoc.toggles.disableconversion then
