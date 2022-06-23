@@ -338,7 +338,7 @@ antpart.CanCollide = false
 
 -- config
 
-stickbug_time = nil -- Morphisto
+stickbug_time = 0 -- Morphisto
 chk5min_time = time() -- Morphisto
 
 getgenv().chocmoc = {
@@ -2077,7 +2077,7 @@ task.spawn(function() while task.wait() do
                 if not chocmoc.toggles.donotfarmtokens and done then gettoken() end
                 if not chocmoc.toggles.farmflower then getflower() end
 				local cooldown = time() - tonumber(chk5min_time)
-				if stickbug_time == nil or cooldown > 300 then chk5min_time = time() check5minstasks() end
+				if stickbug_time == 0 or cooldown > 300 then chk5min_time = time() check5minstasks() end
             end
         elseif tonumber(pollenpercentage) >= tonumber(chocmoc.vars.convertat) then
             if not chocmoc.toggles.disableconversion then
@@ -2969,12 +2969,12 @@ end
 -- Morphisto
 -- Morphisto
 function checksbcooldown()
-	if stickbug_time == nil then
+	if stickbug_time == 0 then
 		local cooldown = 0
 	else
 		local cooldown = time() - tonumber(stickbug_time)
 	end
-	if stickbug_time == nil or cooldown > 1800 and not temptable.started.vicious and not temptable.started.windy then
+	if stickbug_time == 0 or cooldown > 1800 and not temptable.started.vicious and not temptable.started.windy then
 		for i,v in next, game:GetService("Workspace").NPCs:GetChildren() do
 			if v.Name == "Stick Bug" then
 				if v:FindFirstChild("Platform") then
