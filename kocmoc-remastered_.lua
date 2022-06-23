@@ -338,7 +338,7 @@ antpart.CanCollide = false
 
 -- config
 
-stickbug_time = time() -- Morphisto
+stickbug_time = nil -- Morphisto
 chk5min_time = time() -- Morphisto
 
 getgenv().chocmoc = {
@@ -957,7 +957,6 @@ function makequests()
             button = game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.ActivateButton.MouseButton1Click
             if image.ImageTransparency == 0 then
                 if chocmoc.toggles.tptonpc then
-                    --game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Platform.Position.X, v.Platform.Position.Y+3, v.Platform.Position.Z)
 					game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Platform.Position.X, v.Platform.Position.Y+3, v.Platform.Position.Z)
                 else
                     api.tween(2,CFrame.new(v.Platform.Position.X, v.Platform.Position.Y+3, v.Platform.Position.Z))
@@ -2972,9 +2971,12 @@ end
 -- Morphisto
 -- Morphisto
 function checksbcooldown()
-	local cooldown = time() - tonumber(stickbug_time)
-	--1800 sec is 30mins
-	if cooldown > 1800 and not temptable.started.vicious and not temptable.started.windy then
+	if stickbug_time == nil then
+		local cooldown = 0
+	else
+		local cooldown = time() - tonumber(stickbug_time)
+	end
+	if stickbug_time == nil or cooldown > 1800 and not temptable.started.vicious and not temptable.started.windy then
 		for i,v in next, game:GetService("Workspace").NPCs:GetChildren() do
 			if v.Name == "Stick Bug" then
 				if v:FindFirstChild("Platform") then
