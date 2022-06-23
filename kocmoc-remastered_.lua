@@ -2355,9 +2355,9 @@ task.spawn(function() while task.wait(1) do
 end end)
 
 game:GetService('RunService').Heartbeat:connect(function() 
-    if chocmoc.toggles.autoquest then
+    if chocmoc.toggles.autoquest and temptable.started.quests then
 		local ScreenGui = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("ScreenGui")
-		--firesignal(ScreenGui.NPC.ButtonOverlay.MouseButton1Click) -- bug to fix
+		firesignal(ScreenGui.NPC.ButtonOverlay.MouseButton1Click)
 	end
     if chocmoc.toggles.loopspeed then
 		local Humanoid = game.Players.LocalPlayer.Character:WaitForChild("Humanoid")
