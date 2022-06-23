@@ -2357,7 +2357,7 @@ end end)
 game:GetService('RunService').Heartbeat:connect(function() 
     if chocmoc.toggles.autoquest then
 		local ScreenGui = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("ScreenGui")
-		firesignal(ScreenGui.NPC.ButtonOverlay.MouseButton1Click) -- bug to fix
+		--firesignal(ScreenGui.NPC.ButtonOverlay.MouseButton1Click) -- bug to fix
 	end
     if chocmoc.toggles.loopspeed then
 		local Humanoid = game.Players.LocalPlayer.Character:WaitForChild("Humanoid")
