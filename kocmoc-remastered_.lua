@@ -338,7 +338,8 @@ antpart.CanCollide = false
 
 -- config
 
-stickbug_time = 0 -- Morphisto
+stickbug_time = time() -- Morphisto
+sbfirstcheck = false -- Morphisto
 chk5min_time = time() -- Morphisto
 
 getgenv().chocmoc = {
@@ -2077,7 +2078,7 @@ task.spawn(function() while task.wait() do
                 if not chocmoc.toggles.donotfarmtokens and done then gettoken() end
                 if not chocmoc.toggles.farmflower then getflower() end
 				local cooldown = time() - tonumber(chk5min_time)
-				if stickbug_time == 0 or cooldown > 300 then chk5min_time = time() check5minstasks() end
+				if not sbfirstcheck or cooldown > 300 then chk5min_time = time() check5minstasks() end
             end
         elseif tonumber(pollenpercentage) >= tonumber(chocmoc.vars.convertat) then
             if not chocmoc.toggles.disableconversion then
@@ -2969,12 +2970,9 @@ end
 -- Morphisto
 -- Morphisto
 function checksbcooldown()
-	if stickbug_time == 0 then
-		local cooldown = 0
-	else
-		local cooldown = time() - tonumber(stickbug_time)
-	end
-	if stickbug_time == 0 or cooldown > 1800 and not temptable.started.vicious and not temptable.started.windy then
+	local cooldown = time() - tonumber(stickbug_time)
+	if not sbfirstcheck or cooldown > 1800 and not temptable.started.vicious and not temptable.started.windy then
+		sbfirstcheck = true
 		for i,v in next, game:GetService("Workspace").NPCs:GetChildren() do
 			if v.Name == "Stick Bug" then
 				if v:FindFirstChild("Platform") then
@@ -3025,7 +3023,6 @@ function DefenseTotemHP()
 				if v:FindFirstChild("GuiPos"):FindFirstChild("Gui"):FindFirstChild("Frame") then
 					if v:FindFirstChild("GuiPos"):FindFirstChild("Gui"):FindFirstChild("Frame"):FindFirstChild("TextLabel") then
 						local GuiText = v:FindFirstChild("GuiPos"):FindFirstChild("Gui"):FindFirstChild("Frame"):FindFirstChild("TextLabel")
-						print(GuiText.Text)
 						dtHP = tonumber(GuiText.Text)
 						return dtHP
 					end
@@ -3050,7 +3047,7 @@ task.spawn(function()
 				if temptable.started.stickbug then
 					enableall()
 					temptable.started.stickbug = false
-					print('Inside of sbTimer = 10:00')
+					--print('Inside of sbTimer = 10:00')
 					if chocmoc.toggles.godmode then
 						print('disabling godmode')
 						chocmoc.toggles.godmode = false
@@ -3063,9 +3060,8 @@ task.spawn(function()
 				if not temptable.started.stickbug then
 					temptable.started.stickbug = true
 					disableall()
-					print("test stickbug1")
 					if not chocmoc.toggles.godmode then
-						print("test stickbug2")
+						print('enabling godmode')
 						chocmoc.toggles.godmode = true
 						bssapi:Godmode(true)
 						uigodmode:SetState(true)
