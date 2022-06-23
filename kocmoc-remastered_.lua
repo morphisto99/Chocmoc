@@ -2082,7 +2082,8 @@ task.spawn(function() while task.wait() do
 				print(stickbug_time)
 				if stickbug_time == nil or cooldown > 300 then
 					print('test123')
-					chk5min_time = time() check5minstasks()
+					chk5min_time = time()
+					check5minstasks()
 				end
             end
         elseif tonumber(pollenpercentage) >= tonumber(chocmoc.vars.convertat) then
@@ -2981,6 +2982,7 @@ function checksbcooldown()
 		local cooldown = time() - tonumber(stickbug_time)
 	end
 	if stickbug_time == nil or cooldown > 1800 and not temptable.started.vicious and not temptable.started.windy then
+		print('test987654321')
 		for i,v in next, game:GetService("Workspace").NPCs:GetChildren() do
 			if v.Name == "Stick Bug" then
 				if v:FindFirstChild("Platform") then
