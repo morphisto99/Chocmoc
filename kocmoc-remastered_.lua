@@ -2181,6 +2181,9 @@ task.spawn(function() while task.wait() do
                 end
             end
 
+			if typeof(temptable.windy) == "Instance" and temptable.windy:IsA("ObjectValue") then
+				print('temptable.windy is an Instance/Object')
+			end
 			if temptable.windy ~= nil then
 				if not awb then
 					api.tween(1,temptable.gacf(temptable.windy, 5)) -- tries to bump Windy Bee in Cloud -- Morphisto
@@ -2353,7 +2356,7 @@ end end)
 game:GetService('RunService').Heartbeat:connect(function() 
     if chocmoc.toggles.autoquest then
 		local ScreenGui = game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("ScreenGui")
-		firesignal(ScreenGui.NPC.ButtonOverlay.MouseButton1Click)
+		firesignal(ScreenGui.NPC.ButtonOverlay.MouseButton1Click) -- bug to fix
 	end
     if chocmoc.toggles.loopspeed then
 		local Humanoid = game.Players.LocalPlayer.Character:WaitForChild("Humanoid")
