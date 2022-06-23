@@ -912,9 +912,7 @@ end
 -- Morphisto
 function check5minstasks()
 	if not temptable.started.vicious and not temptable.started.windy and not temptable.started.stickbug then
-		if chocmoc.toggles.killstickbug then
-			checksbcooldown()
-		end
+		checksbcooldown()
 		if chocmoc.toggles.autoquest and not temptable.started.stickbug then
 			makequests()
 		end
