@@ -2903,13 +2903,19 @@ task.spawn(function()
 			end
 		end
 		
-		for i,v in pairs(temptable.oplayers) do
-			--print(i,v)
-			for j,k in next, newotherplayers do
-				--print('k=' .. k)
-				if i ~= k then
-					print(i .. ' is not in newotherplayers')
-					tableremovekey(temptable.oplayers, i)
+		if next(temptable.oplayers) ~= nil then
+			for i,v in pairs(temptable.oplayers) do
+				--print(i,v)
+				if next(newotherplayers) ~= nil then
+					for j,k in next, newotherplayers do
+						--print('k=' .. k)
+						if i ~= k then
+							--print(i .. ' is not in newotherplayers')
+							tableremovekey(temptable.oplayers, i)
+						end
+					end
+				else
+					temptable.oplayers = {}
 				end
 			end
 		end
