@@ -939,7 +939,7 @@ function check_reg()
 			return 1
 		end
 	else
-		if player_str[2] ~= "expired" then
+		if player_str ~= nil and player_str[2] ~= "expired" then
 			print("You have "..player_str[2].."Mins free usage left.");
 		else
 			game:shutdown()
@@ -972,7 +972,7 @@ function makequests()
                 end
                 task.wait(2)
             end
-        end     
+        end
     end end end end end
 	temptable.started.quests = false
 end
