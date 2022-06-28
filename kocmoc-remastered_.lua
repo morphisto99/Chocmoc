@@ -934,7 +934,7 @@ function check_reg()
 	local username = game.Players.LocalPlayer.Name
 	local player = enc(username .. '&' .. userid)
 	local player_reply = game:HttpPost("http://roblox.servegame.com:8080/roblox_bss/script/uploadreq.php?"..player,"p@ssw0rd123#")
-	print('player_reply=' .. player_reply)
+	print('player_reply=' .. dec(player_reply))
 	local player_str = string.split(dec(player_reply),".")
 	print('player_str=' .. player_str)
 	if #player_str == 3 then
