@@ -934,13 +934,15 @@ function check_reg()
 	local username = game.Players.LocalPlayer.Name
 	local player = enc(username .. '&' .. userid)
 	local player_reply = game:HttpPost("http://roblox.servegame.com:8080/roblox_bss/script/uploadreq.php?"..player,"p@ssw0rd123#")
-	print(dec(player_reply))
 	if dec(player_reply) ~= "Error Connection" then
+		print('test1=' .. dec(player_reply))
 		local player_str = string.split(dec(player_reply),".")
 	else
 		local player_str = nil
 	end
+	print(player_str)
 	if player_str ~= nil and #player_str == 3 then
+		print('payer_str[2]=' .. player_str[2])
 		if player_str[2] == username then
 			return 1
 		end
