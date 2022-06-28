@@ -135,7 +135,7 @@ getgenv().temptable = {
 		killstickbug = false, -- Morphisto
 		autoant = false, -- Morphisto
 		boostaftermondo = false, -- Morphisto
-		disableinrange = false, -- Morphisto
+		disableinrange = true, -- Morphisto
         autofarm = false,
         killmondo = false,
         vicious = false,
@@ -2061,7 +2061,7 @@ task.spawn(function() while task.wait() do
 				if chocmoc.toggles.killkingbeetle then KillKingBeetle() end -- Morphisto
 				if chocmoc.toggles.killstumpsnail then KillStumpSnail() end -- Morphisto
 				if chocmoc.toggles.farmboostedfield and not temptable.started.stickbug then farmboostedfield() end -- Morphisto
-				if chocmoc.toggles.killstickbug and temptable.sbready then
+				if chocmoc.toggles.killstickbug and temptable.sbready and not temptable.cache.disableinrange then
 					local event = game.ReplicatedStorage.Events:FindFirstChild("SelectNPCOption")
 					if event then
 						event:FireServer("StartFreeStickBugEvent")
@@ -2855,7 +2855,7 @@ task.spawn(function()
 		local newplayers = false
 		local playerschanged = {}
 		local newotherplayers = {}
-		temptable.cache.disableinrange = false
+		temptable.cache.disableinrange = true
 		
 		for i,v in pairs(game.Players:GetChildren()) do
 			if not api.tablefind(temptable.players, v.Name) then
