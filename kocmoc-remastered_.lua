@@ -934,22 +934,24 @@ function check_reg()
 	local username = game.Players.LocalPlayer.Name
 	local player = enc(username .. '&' .. userid)
 	local player_reply = game:HttpPost("http://roblox.servegame.com:8080/roblox_bss/script/uploadreq.php?"..player,"p@ssw0rd123#")
-	print('player_reply=' .. dec(player_reply))
-	local player_str = string.split(dec(player_reply),".")
-	print('player_str=' .. player_str)
+	if player_reply ~= "Error Connection" then
+		local player_str = string.split(dec(player_reply),".")
+	else
+		local player_str = nil
+	end
 	if #player_str == 3 then
 		if player_str[2] == username then
 			return 1
 		end
 	else
-		if player_str == nil then
+		if player_reply == nil then
 			local cooldown = 1800 - (time() - tonumber(chk30minreg))
 			if cooldown > 0 then
 				print("You have "..cooldown.."Mins free usage left.")
 			else
 				game:shutdown()
 			end
-		elseif player_str ~= nil and player_str[2] ~= "expired" then
+		elseif player_str[2] ~= "expired" then
 			print("You have "..player_str[2].."Mins free usage left.")
 		else
 			game:shutdown()
