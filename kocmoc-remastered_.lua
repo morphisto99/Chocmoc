@@ -944,7 +944,7 @@ function check_reg()
 			return 1
 		end
 	else
-		if player_reply == nil then
+		if player_str == nil then
 			local cooldown = 1800 - (time() - tonumber(chk30minreg))
 			if cooldown > 0 then
 				print("You have "..cooldown.."Mins free usage left.")
