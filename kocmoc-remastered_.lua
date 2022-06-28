@@ -938,8 +938,11 @@ function check_reg()
 		local player_str = nil
 	else
 		local player_str = string.split(dec(player_reply),".")
+		print(#player_str)
 	end
+	print('player_str=' .. player_str)
 	if player_str ~= nil and #player_str == 3 then
+		print('player_str[2]=' .. player_str[2])
 		if player_str[2] == username then
 			return 1
 		end
