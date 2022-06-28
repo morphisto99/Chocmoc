@@ -947,19 +947,17 @@ function check_reg()
 		if player_str == nil then
 			local cooldown = math.floor((1800 - (time() - tonumber(chk30minreg)))/60)
 			if cooldown > 0 then
-				print("You have "..cooldown.."Mins free usage left.")
+				print("You have "..cooldown.." Mins free usage left.")
 			else
 				game:shutdown()
 			end
 		elseif player_str[2] ~= "expired" then
-			print("You have "..player_str[2].."Mins free usage left.")
+			print("You have "..player_str[2].." Mins free usage left.")
 		else
 			game:shutdown()
 		end
 		return 0
 	end
-	
-	
 end
 
 function makequests()
