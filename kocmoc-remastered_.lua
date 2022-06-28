@@ -939,7 +939,7 @@ function check_reg()
 	else
 		local player_str = nil
 	end
-	if #player_str == 3 then
+	if player_str ~= nil and #player_str == 3 then
 		if player_str[2] == username then
 			return 1
 		end
