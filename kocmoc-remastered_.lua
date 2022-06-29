@@ -2855,7 +2855,7 @@ task.spawn(function()
 		local newplayers = false
 		local playerschanged = {}
 		local newotherplayers = {}
-		temptable.cache.disableinrange = true
+		temptable.cache.disableinrange = false
 		
 		for i,v in pairs(game.Players:GetChildren()) do
 			if not api.tablefind(temptable.players, v.Name) then
