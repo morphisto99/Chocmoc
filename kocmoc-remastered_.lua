@@ -952,7 +952,7 @@ function check_reg()
 			else
 				game:shutdown()
 			end
-		elseif player_str[2] ~= "expired" then
+		elseif player_str ~= nil and player_str[2] ~= "expired" then
 			print("You have "..player_str[2].." Mins free usage left.")
 		else
 			game:shutdown()
@@ -2199,8 +2199,6 @@ task.spawn(function() while task.wait() do
 			if temptable.windy ~= nil then
 				if not awb then
 					api.tween(1,temptable.gacf(temptable.windy, 5)) -- tries to bump Windy Bee in Cloud -- Morphisto
-					task.wait(1)
-					api.tween(1,temptable.gacf(temptable.windy, 4)) -- tries to bump Windy Bee in Cloud -- Morphisto
 					task.wait(1)
 					awb = true
 				end
