@@ -72,7 +72,7 @@ getgenv().temptable = {
 	oplayers = {}, -- Morphisto
 	boostedfield = "", -- Morphisto
 	sbready = false, -- Morphisto
-
+	runtime = "", -- Morphisto
     redfields = {},
     bluefields = {},
     whitefields = {},
@@ -941,8 +941,15 @@ function check_reg()
 		player_str = string.split(dec(player_reply),".")
 	end
 	if player_str ~= nil and #player_str == 3 then
-		if player_str[2] == username then
-			return 1
+		if temptable.runtime ~= player_str[3] then
+			temptable.runtime = player_str[3]
+			if player_str[2] == username then
+				return 1
+			else
+				return 0
+			end
+		else
+			return 0
 		end
 	else
 		if player_str == nil then
