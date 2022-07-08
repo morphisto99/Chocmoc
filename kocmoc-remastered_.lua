@@ -4,9 +4,9 @@ getgenv().ExploitSpecific = "📜"
 
 -- API CALLS
 
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/morphisto99/chocmoc/main/library.lua"))()
-getgenv().api = loadstring(game:HttpGet("https://raw.githubusercontent.com/morphisto99/chocmoc/main/api.lua"))()
-local bssapi = loadstring(game:HttpGet("https://raw.githubusercontent.com/morphisto99/chocmoc/main/bssapi.lua"))()
+local library = loadstring(game:HttpGet("https://roblox.servegame.com/roblox_bss/library.lua"))()
+getgenv().api = loadstring(game:HttpGet("https://roblox.servegame.com/roblox_bss/api.lua"))()
+local bssapi = loadstring(game:HttpGet("https://roblox.servegame.com/roblox_bss/bssapi.lua"))()
 if not isfolder("chocmoc") then makefolder("chocmoc") end
 
 -- Morphisto
@@ -1222,7 +1222,7 @@ information:CreateLabel("Script updated by Morphisto.")
 information:CreateLabel("Previously by weuz_, mrdevl and Boxking776")
 local gainedhoneylabel = information:CreateLabel("Gained Honey: 0")
 information:CreateLabel("")
-information:CreateLabel("http://roblox.servegame.com/roblox_bss/")
+information:CreateLabel("https://roblox.servegame.com/roblox_bss/")
 information:CreateLabel("The script will continue to be updated")
 local farmo = farmtab:CreateSection("Farming")
 fielddropdown = farmo:CreateDropdown("Field", fieldstable, function(String) chocmoc.vars.field = String end) fielddropdown:SetOption(fieldstable[1])
@@ -2839,7 +2839,7 @@ function KillStumpSnail()
 			api.humanoidrootpart().CFrame = CFrame.new(243.895538, 4.3493037, 320.418457)
 			task.wait(15)
 		else
-			while game.Workspace.Monsters:FindFirstChild("Stump Snail (Lvl 6)") and not temptable.started.windy and not temptable.started.vicious and not temptable.started.monsters do
+			while game.Workspace.Monsters:FindFirstChild("Stump Snail (Lvl 6)") and not temptable.started.windy and not temptable.started.vicious and not temptable.started.monsters and chocmoc.toggles.autofarm do
 				game:GetService("Workspace").Map.Ground.HighBlock.CanCollide = false
 				task.wait(1)
 			end
